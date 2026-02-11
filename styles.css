@@ -1,0 +1,805 @@
+/* ==========================================
+   グローバルスタイル & リセット
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* カラーパレット - ワンピース風 */
+    --primary-color: #FF6B35;        /* オレンジ（麦わら帽子） */
+    --secondary-color: #F7931E;      /* ゴールド */
+    --accent-red: #DC143C;           /* 赤 */
+    --ocean-blue: #1E90FF;           /* 海の青 */
+    --dark-blue: #003D5B;            /* 深い海 */
+    --treasure-gold: #FFD700;        /* 宝物の金 */
+    --paper-bg: #F4E8D0;             /* 古い紙の色 */
+    --parchment: #FFF8DC;            /* 羊皮紙 */
+    --wood-brown: #8B4513;           /* 木材 */
+    --text-dark: #2C1810;            /* 濃いテキスト */
+    --shadow: rgba(0, 0, 0, 0.3);
+    
+    /* フォント */
+    --font-title: 'Bangers', cursive;
+    --font-accent: 'Permanent Marker', cursive;
+    --font-body: 'Nunito', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background: linear-gradient(135deg, #87CEEB 0%, #1E90FF 100%);
+    background-attachment: fixed;
+    color: var(--text-dark);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 海の波模様背景 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 50px,
+            rgba(255, 255, 255, 0.03) 50px,
+            rgba(255, 255, 255, 0.03) 100px
+        );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ==========================================
+   ヘッダー
+   ========================================== */
+.pirate-header {
+    background: linear-gradient(135deg, var(--wood-brown) 0%, #654321 100%);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 20px var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 4px solid var(--treasure-gold);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    color: var(--treasure-gold);
+    text-align: center;
+    margin-bottom: 1rem;
+    text-shadow: 
+        3px 3px 0 var(--accent-red),
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    letter-spacing: 2px;
+}
+
+.skull, .anchor {
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+.anchor {
+    animation-delay: 1s;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background: var(--parchment);
+    border: 3px solid var(--wood-brown);
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 0 var(--wood-brown);
+    position: relative;
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--wood-brown);
+    background: var(--treasure-gold);
+}
+
+.nav-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--wood-brown);
+}
+
+.nav-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--accent-red);
+    box-shadow: 0 4px 0 var(--accent-red);
+}
+
+/* ==========================================
+   メインコンテナ
+   ========================================== */
+.main-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.page {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   ホーム画面
+   ========================================== */
+.hero-section {
+    text-align: center;
+}
+
+.treasure-map {
+    background: var(--parchment);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    border: 5px solid var(--wood-brown);
+    box-shadow: 
+        0 10px 30px var(--shadow),
+        inset 0 0 50px rgba(139, 69, 19, 0.1);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.treasure-map::before {
+    content: '🗺️';
+    position: absolute;
+    font-size: 15rem;
+    opacity: 0.05;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+.hero-title {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    line-height: 1.2;
+}
+
+.highlight {
+    color: var(--primary-color);
+    text-shadow: 2px 2px 0 var(--treasure-gold);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: var(--dark-blue);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.start-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-red));
+    color: white;
+    border: none;
+    padding: 1.2rem 3rem;
+    font-size: 1.3rem;
+    font-family: var(--font-accent);
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #8B0000;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.start-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 #8B0000;
+}
+
+.start-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 #8B0000;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    border: 4px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 5px 15px var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    font-size: 3rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    font-family: var(--font-accent);
+}
+
+/* ==========================================
+   レッスン一覧画面
+   ========================================== */
+.map-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-title {
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    color: var(--treasure-gold);
+    text-shadow: 
+        3px 3px 0 var(--accent-red),
+        -1px -1px 0 var(--dark-blue),
+        1px -1px 0 var(--dark-blue),
+        -1px 1px 0 var(--dark-blue),
+        1px 1px 0 var(--dark-blue);
+    margin-bottom: 0.5rem;
+}
+
+.compass {
+    display: inline-block;
+    animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.page-subtitle {
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.lessons-map {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.lesson-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    border: 4px solid var(--ocean-blue);
+    box-shadow: 0 8px 20px var(--shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.lesson-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 0%, rgba(255, 215, 0, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lesson-card:hover {
+    transform: translateY(-10px) rotate(2deg);
+    border-color: var(--primary-color);
+}
+
+.lesson-card:hover::before {
+    opacity: 1;
+}
+
+.lesson-card.completed {
+    border-color: var(--treasure-gold);
+    background: linear-gradient(135deg, #FFF8DC 0%, #FFFACD 100%);
+}
+
+.lesson-icon {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.lesson-card-title {
+    font-family: var(--font-accent);
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.lesson-description {
+    color: #555;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.lesson-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: var(--ocean-blue);
+}
+
+.lesson-status.completed {
+    color: var(--treasure-gold);
+}
+
+/* ==========================================
+   レッスン詳細画面
+   ========================================== */
+.lesson-header {
+    background: var(--parchment);
+    padding: 1.5rem;
+    border-radius: 15px;
+    border: 4px solid var(--wood-brown);
+    margin-bottom: 2rem;
+}
+
+.back-btn {
+    background: var(--ocean-blue);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: var(--dark-blue);
+    transform: translateX(-5px);
+}
+
+.lesson-title {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.lesson-progress-bar {
+    background: #ddd;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid var(--wood-brown);
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--treasure-gold), var(--primary-color));
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    color: white;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.lesson-content {
+    display: grid;
+    gap: 2rem;
+}
+
+.content-panel,
+.code-panel {
+    background: white;
+    border-radius: 15px;
+    border: 4px solid var(--ocean-blue);
+    overflow: hidden;
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.panel-header {
+    background: linear-gradient(135deg, var(--ocean-blue), var(--dark-blue));
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-header h3 {
+    font-family: var(--font-accent);
+    font-size: 1.3rem;
+}
+
+.panel-body {
+    padding: 1.5rem;
+}
+
+#lesson-content-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+}
+
+#lesson-content-text h4 {
+    color: var(--primary-color);
+    margin: 1.5rem 0 1rem;
+    font-family: var(--font-accent);
+}
+
+#lesson-content-text code {
+    background: #f4f4f4;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    color: var(--accent-red);
+}
+
+#lesson-content-text pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    border: 3px solid var(--primary-color);
+}
+
+.code-editor {
+    width: 100%;
+    min-height: 200px;
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    resize: vertical;
+    background: #2d2d2d;
+    color: #f8f8f2;
+}
+
+.reset-btn,
+.run-btn {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.run-btn {
+    width: 100%;
+    margin-top: 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-red));
+    font-size: 1.2rem;
+    padding: 1rem;
+}
+
+.run-btn:hover {
+    transform: scale(1.05);
+}
+
+.reset-btn:hover {
+    background: var(--treasure-gold);
+    color: var(--text-dark);
+}
+
+.output-area {
+    margin-top: 1.5rem;
+    border: 3px solid var(--ocean-blue);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.output-header {
+    background: var(--ocean-blue);
+    color: white;
+    padding: 0.75rem 1rem;
+    font-weight: 700;
+}
+
+.code-output {
+    padding: 1rem;
+    background: #1e1e1e;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    min-height: 100px;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.navigation-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.prev-btn,
+.complete-btn {
+    flex: 1;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.prev-btn {
+    background: #ccc;
+    color: var(--text-dark);
+}
+
+.prev-btn:hover {
+    background: #bbb;
+}
+
+.complete-btn {
+    background: linear-gradient(135deg, var(--treasure-gold), var(--secondary-color));
+    color: white;
+    box-shadow: 0 5px 0 #DAA520;
+}
+
+.complete-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 #DAA520;
+}
+
+.complete-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #DAA520;
+}
+
+/* ==========================================
+   進捗画面
+   ========================================== */
+.progress-container {
+    display: grid;
+    gap: 2rem;
+}
+
+.achievement-section,
+.journey-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 4px solid var(--treasure-gold);
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.achievement-section h3,
+.journey-section h3 {
+    font-family: var(--font-accent);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.achievements {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.achievement-badge {
+    background: linear-gradient(135deg, var(--treasure-gold), var(--secondary-color));
+    padding: 1rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.achievement-badge:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.achievement-badge.locked {
+    background: #ddd;
+    opacity: 0.5;
+}
+
+.badge-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.badge-title {
+    font-weight: 700;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.journey-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--parchment);
+    border-radius: 10px;
+    border-left: 5px solid var(--primary-color);
+}
+
+.timeline-date {
+    font-weight: 700;
+    color: var(--ocean-blue);
+    min-width: 100px;
+}
+
+.timeline-content {
+    flex: 1;
+}
+
+/* ==========================================
+   フッター
+   ========================================== */
+.pirate-footer {
+    background: linear-gradient(135deg, var(--wood-brown) 0%, #654321 100%);
+    color: var(--treasure-gold);
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-top: 4rem;
+    border-top: 4px solid var(--treasure-gold);
+}
+
+.footer-text {
+    font-family: var(--font-accent);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-credits {
+    color: rgba(255, 215, 0, 0.7);
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   レスポンシブ対応
+   ========================================== */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .start-btn {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+    
+    .lessons-map {
+        grid-template-columns: 1fr;
+    }
+    
+    .navigation-buttons {
+        flex-direction: column;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-container {
+        padding: 0 0.5rem;
+    }
+    
+    .treasure-map {
+        padding: 2rem 1rem;
+    }
+    
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}

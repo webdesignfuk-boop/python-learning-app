@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python海賊王への道 - 学習アプリ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="pirate-header">
+        <div class="header-content">
+            <h1 class="logo">
+                <span class="skull">☠️</span>
+                Python海賊王への道
+                <span class="anchor">⚓</span>
+            </h1>
+            <nav class="main-nav">
+                <button class="nav-btn active" data-page="home">
+                    🏠 ホーム
+                </button>
+                <button class="nav-btn" data-page="lessons">
+                    🗺️ 航路
+                </button>
+                <button class="nav-btn" data-page="progress">
+                    📊 航海日誌
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="main-container">
+        <!-- ホーム画面 -->
+        <section id="home-page" class="page active">
+            <div class="hero-section">
+                <div class="treasure-map">
+                    <h2 class="hero-title">
+                        プログラミングの
+                        <span class="highlight">大秘宝</span>
+                        を探せ！
+                    </h2>
+                    <p class="hero-subtitle">
+                        Python言語を学び、コーディングの海賊王を目指そう！
+                    </p>
+                    <button class="start-btn" onclick="app.navigateTo('lessons')">
+                        🏴‍☠️ 冒険を始める
+                    </button>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon">🏝️</div>
+                        <div class="stat-info">
+                            <div class="stat-label">発見した島</div>
+                            <div class="stat-value" id="completed-lessons">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <div class="stat-label">獲得した宝</div>
+                            <div class="stat-value" id="total-points">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚔️</div>
+                        <div class="stat-info">
+                            <div class="stat-label">修行日数</div>
+                            <div class="stat-value" id="study-days">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- レッスン一覧画面 -->
+        <section id="lessons-page" class="page">
+            <div class="map-header">
+                <h2 class="page-title">
+                    <span class="compass">🧭</span>
+                    航路マップ
+                </h2>
+                <p class="page-subtitle">Python島への冒険の旅</p>
+            </div>
+
+            <div class="lessons-map" id="lessons-container">
+                <!-- レッスンカードはJavaScriptで動的生成 -->
+            </div>
+        </section>
+
+        <!-- レッスン詳細画面 -->
+        <section id="lesson-detail-page" class="page">
+            <div class="lesson-header">
+                <button class="back-btn" onclick="app.navigateTo('lessons')">
+                    ← 航路マップに戻る
+                </button>
+                <h2 class="lesson-title" id="current-lesson-title"></h2>
+                <div class="lesson-progress-bar">
+                    <div class="progress-fill" id="lesson-progress"></div>
+                </div>
+            </div>
+
+            <div class="lesson-content">
+                <div class="content-panel">
+                    <div class="panel-header">
+                        <h3>📜 学習内容</h3>
+                    </div>
+                    <div class="panel-body" id="lesson-content-text">
+                        <!-- レッスン内容がここに表示される -->
+                    </div>
+                </div>
+
+                <div class="code-panel">
+                    <div class="panel-header">
+                        <h3>⚓ コードを試そう</h3>
+                        <button class="reset-btn" onclick="app.resetCode()">
+                            🔄 リセット
+                        </button>
+                    </div>
+                    <div class="panel-body">
+                        <textarea id="code-editor" class="code-editor" placeholder="ここにPythonコードを書いてね..."></textarea>
+                        <button class="run-btn" onclick="app.runCode()">
+                            ▶️ 実行する
+                        </button>
+                        <div class="output-area">
+                            <div class="output-header">💬 実行結果</div>
+                            <pre id="code-output" class="code-output">コードを実行すると結果がここに表示されるよ！</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="prev-btn" onclick="app.previousLesson()">
+                        ⬅️ 前のレッスン
+                    </button>
+                    <button class="complete-btn" onclick="app.completeLesson()">
+                        ✅ 完了して次へ
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 進捗画面 -->
+        <section id="progress-page" class="page">
+            <div class="map-header">
+                <h2 class="page-title">
+                    <span class="compass">📖</span>
+                    航海日誌
+                </h2>
+                <p class="page-subtitle">君の冒険の記録</p>
+            </div>
+
+            <div class="progress-container">
+                <div class="achievement-section">
+                    <h3>🏆 獲得した称号</h3>
+                    <div class="achievements" id="achievements-list">
+                        <!-- 称号がここに表示される -->
+                    </div>
+                </div>
+
+                <div class="journey-section">
+                    <h3>🗺️ 冒険の軌跡</h3>
+                    <div class="journey-timeline" id="journey-timeline">
+                        <!-- 学習履歴がここに表示される -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="pirate-footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                🏴‍☠️ 海賊王に俺はなる！ - Python学習の冒険 🏴‍☠️
+            </p>
+            <p class="footer-credits">
+                Created with ❤️ for all aspiring Python Pirates
+            </p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
