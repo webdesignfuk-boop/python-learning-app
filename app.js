@@ -16,14 +16,43 @@ class PythonLearningApp {
         this.init();
     }
 
-    // 初期化
-    init() {
-        this.loadProgress();
-        this.createLessons();
-        this.updateStats();
-        this.setupNavigation();
-        this.updateStudyDays();
+   // 初期化
+init() {
+    this.loadProgress();
+    this.createLessons();
+    this.updateStats();
+    this.setupNavigation();
+    this.updateStudyDays();
+    this.setupStartButton();
+}
+// スタートボタンのセットアップ
+setupStartButton() {
+    const startBtn = document.getElementById('start-adventure-btn');
+    if (startBtn) {
+        console.log('スタートボタンが見つかりました');
+        
+        // クリックイベント（PC用）
+        startBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('ボタンがクリックされました');
+            this.navigateTo('lessons');
+        });
+        
+        // タッチイベント（スマホ用）
+        startBtn.addEventListener('touchstart', (e) => {
+            console.log('ボタンがタッチされました');
+        });
+        
+        startBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('タッチが終了しました');
+            this.navigateTo('lessons');
+        }, { passive: false });
+    } else {
+        console.error('スタートボタンが見つかりません');
     }
+}
 
     // レッスンデータの作成
     createLessons() {
