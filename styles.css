@@ -203,6 +203,8 @@ body::before {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-15deg);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .hero-title {
@@ -225,30 +227,51 @@ body::before {
     color: var(--dark-blue);
     margin-bottom: 2rem;
     font-weight: 600;
+    position: relative;
+    z-index: 1;
 }
 
 .start-btn {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-red));
     color: white;
     border: none;
-    padding: 1.2rem 3rem;
-    font-size: 1.3rem;
+    padding: 1.5rem 4rem;
+    font-size: 1.5rem;
     font-family: var(--font-accent);
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 6px 0 #8B0000;
     transition: all 0.3s ease;
     text-transform: uppercase;
+    display: inline-block;
+    text-decoration: none;
+    position: relative;
+    z-index: 10;
+    /* タッチデバイス対応 */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    /* クリック領域を確実に確保 */
+    min-width: 280px;
+    min-height: 70px;
 }
 
 .start-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 9px 0 #8B0000;
+    background: linear-gradient(135deg, #FF8C5A, #FF1744);
 }
 
 .start-btn:active {
     transform: translateY(3px);
     box-shadow: 0 3px 0 #8B0000;
+}
+
+/* スマホでのタップを確実にする */
+@media (hover: none) and (pointer: coarse) {
+    .start-btn:active {
+        background: linear-gradient(135deg, #FF8C5A, #FF1744);
+        transform: scale(0.98);
+    }
 }
 
 .stats-container {
